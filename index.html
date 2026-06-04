@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sakshi Goswami — IT Graduate & Aspiring Tech Professional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0A0A0F;
+  --surface:#111118;
+  --surface2:#1A1A24;
+  --accent:#7B5EA7;
+  --accent2:#C084FC;
+  --accent3:#38BDF8;
+  --text:#E8E6F0;
+  --text-muted:#8B879C;
+  --border:rgba(123,94,167,0.2);
+  --mono:'Space Mono',monospace;
+  --sans:'DM Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:hidden;cursor:none}
+
+/* Custom cursor */
+.cursor{position:fixed;width:10px;height:10px;background:var(--accent2);border-radius:50%;pointer-events:none;z-index:9999;transition:transform 0.15s ease;mix-blend-mode:difference}
+.cursor-follower{position:fixed;width:30px;height:30px;border:1px solid var(--accent);border-radius:50%;pointer-events:none;z-index:9998;transition:transform 0.4s ease,opacity 0.3s ease;opacity:0.5}
+
+/* Noise overlay */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:1000;opacity:0.4
+}
+
+/* Nav */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:1.25rem 2.5rem;
+  display:flex;justify-content:space-between;align-items:center;
+  border-bottom:1px solid var(--border);
+  background:rgba(10,10,15,0.85);backdrop-filter:blur(20px);
+}
+.nav-logo{font-family:var(--mono);font-size:0.85rem;color:var(--accent2);letter-spacing:0.15em;text-transform:uppercase}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-family:var(--mono);font-size:0.75rem;color:var(--text-muted);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.3s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--accent2);transition:width 0.3s}
+.nav-links a:hover{color:var(--accent2)}
+.nav-links a:hover::after{width:100%}
+
+/* Hero */
+#hero{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;padding:6rem 2.5rem 3rem;
+}
+.hero-grid{position:absolute;inset:0;opacity:0.04;
+  background-image:linear-gradient(var(--accent) 1px,transparent 1px),linear-gradient(90deg,var(--accent) 1px,transparent 1px);
+  background-size:60px 60px}
+.hero-glow{position:absolute;top:20%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(123,94,167,0.12) 0%,transparent 70%);pointer-events:none}
+
+.hero-inner{position:relative;z-index:1;max-width:900px;width:100%}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  font-family:var(--mono);font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--accent2);
+  border:1px solid rgba(192,132,252,0.3);
+  padding:0.4rem 1rem;border-radius:2px;margin-bottom:2rem;
+}
+.hero-tag::before{content:'';width:6px;height:6px;background:var(--accent2);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+
+h1.hero-name{
+  font-family:var(--mono);
+  font-size:clamp(3rem,9vw,7.5rem);
+  font-weight:700;
+  line-height:0.95;
+  letter-spacing:-0.03em;
+  color:#fff;
+  margin-bottom:0.15em;
+}
+h1.hero-name span{color:var(--accent2)}
+.hero-title{
+  font-family:var(--mono);font-size:clamp(0.9rem,2vw,1.2rem);
+  color:var(--accent3);letter-spacing:0.05em;margin-bottom:2rem;
+}
+.hero-desc{
+  max-width:560px;font-size:1.05rem;line-height:1.75;
+  color:var(--text-muted);margin-bottom:3rem;font-weight:300;
+}
+.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{
+  font-family:var(--mono);font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;
+  padding:0.85rem 2rem;background:var(--accent);color:#fff;
+  border:none;text-decoration:none;cursor:none;
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
+  transition:background 0.3s,transform 0.2s;display:inline-block;
+}
+.btn-primary:hover{background:var(--accent2);transform:translateY(-2px)}
+.btn-ghost{
+  font-family:var(--mono);font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;
+  padding:0.85rem 2rem;background:transparent;color:var(--text);
+  border:1px solid var(--border);text-decoration:none;cursor:none;
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
+  transition:border-color 0.3s,color 0.3s,transform 0.2s;display:inline-block;
+}
+.btn-ghost:hover{border-color:var(--accent2);color:var(--accent2);transform:translateY(-2px)}
+
+.hero-stats{
+  position:absolute;right:2.5rem;bottom:3rem;
+  display:flex;flex-direction:column;gap:2rem;
+  font-family:var(--mono);text-align:right;
+}
+.stat-num{font-size:2rem;font-weight:700;color:var(--accent2);display:block;line-height:1}
+.stat-lbl{font-size:0.62rem;color:var(--text-muted);letter-spacing:0.12em;text-transform:uppercase}
+
+/* Section commons */
+section{padding:6rem 2.5rem;position:relative}
+.section-label{
+  font-family:var(--mono);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:1rem;margin-bottom:3.5rem;
+}
+.section-label::before{content:'';flex:0 0 40px;height:1px;background:var(--accent)}
+h2.section-title{
+  font-family:var(--mono);font-size:clamp(2rem,5vw,4rem);
+  font-weight:700;color:#fff;line-height:1;letter-spacing:-0.02em;margin-bottom:1.5rem;
+}
+
+/* About */
+#about{background:var(--surface)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;max-width:1100px;margin:0 auto}
+.about-text p{color:var(--text-muted);line-height:1.8;margin-bottom:1.5rem;font-weight:300;font-size:1.03rem}
+.about-text strong{color:var(--text);font-weight:500}
+.about-sidebar{}
+.edu-card{
+  background:var(--surface2);border:1px solid var(--border);
+  padding:1.5rem;margin-bottom:1rem;
+  clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%);
+}
+.edu-card .school{font-family:var(--mono);font-size:0.78rem;color:var(--accent2);letter-spacing:0.08em;margin-bottom:0.5rem}
+.edu-card .degree{font-size:0.95rem;color:var(--text);margin-bottom:0.3rem}
+.edu-card .detail{font-family:var(--mono);font-size:0.72rem;color:var(--text-muted)}
+
+/* Skills */
+#skills{background:var(--bg)}
+.skills-container{max-width:1100px;margin:0 auto}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;border:1px solid var(--border)}
+.skill-group{padding:2rem;border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+.skill-group:last-child{border-right:none}
+.skill-group-title{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.15em;color:var(--accent3);text-transform:uppercase;margin-bottom:1.2rem}
+.skill-tag{
+  display:inline-block;font-family:var(--mono);font-size:0.7rem;
+  padding:0.3rem 0.75rem;background:var(--surface2);color:var(--text-muted);
+  border:1px solid var(--border);margin:0.25rem 0.25rem 0.25rem 0;
+  transition:border-color 0.3s,color 0.3s;
+}
+.skill-tag:hover{border-color:var(--accent2);color:var(--accent2)}
+
+/* Experience */
+#experience{background:var(--surface)}
+.exp-container{max-width:900px;margin:0 auto}
+.exp-item{
+  display:grid;grid-template-columns:200px 1fr;gap:3rem;
+  padding:2.5rem 0;border-bottom:1px solid var(--border);
+  position:relative;
+}
+.exp-item::before{content:'';position:absolute;left:197px;top:0;bottom:0;width:1px;background:var(--border)}
+.exp-meta{padding-right:2rem}
+.exp-period{font-family:var(--mono);font-size:0.72rem;color:var(--accent);letter-spacing:0.08em;margin-bottom:0.5rem}
+.exp-type{
+  display:inline-block;font-family:var(--mono);font-size:0.65rem;
+  padding:0.25rem 0.6rem;background:rgba(56,189,248,0.08);
+  color:var(--accent3);border:1px solid rgba(56,189,248,0.2);
+  letter-spacing:0.1em;text-transform:uppercase;
+}
+.exp-role{font-family:var(--mono);font-size:1rem;color:#fff;font-weight:700;margin-bottom:0.3rem}
+.exp-org{font-size:0.85rem;color:var(--accent2);margin-bottom:1rem}
+.exp-desc{font-size:0.9rem;color:var(--text-muted);line-height:1.7}
+.exp-desc li{margin-bottom:0.5rem;padding-left:1.2rem;position:relative}
+.exp-desc li::before{content:'→';position:absolute;left:0;color:var(--accent);font-family:var(--mono)}
+
+/* Certifications */
+#certifications{background:var(--bg)}
+.certs-container{max-width:1100px;margin:0 auto}
+.certs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+.cert-card{
+  background:var(--surface);border:1px solid var(--border);padding:1.75rem;
+  position:relative;overflow:hidden;
+  transition:border-color 0.3s,transform 0.3s;
+  clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%);
+}
+.cert-card::before{
+  content:'';position:absolute;top:0;right:0;width:14px;height:14px;
+  background:var(--accent);clip-path:polygon(100% 0,0 0,100% 100%);
+}
+.cert-card:hover{border-color:var(--accent2);transform:translateY(-3px)}
+.cert-issuer{font-family:var(--mono);font-size:0.68rem;color:var(--accent3);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.5rem}
+.cert-name{font-size:0.95rem;color:#fff;font-weight:500;margin-bottom:0.75rem;line-height:1.4}
+.cert-date{font-family:var(--mono);font-size:0.68rem;color:var(--text-muted)}
+
+/* Roles targeting */
+#roles{background:var(--surface)}
+.roles-container{max-width:1100px;margin:0 auto}
+.roles-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;border:1px solid var(--border)}
+.role-item{
+  padding:2rem 1.5rem;border-right:1px solid var(--border);
+  transition:background 0.3s;cursor:none;
+}
+.role-item:hover{background:var(--surface2)}
+.role-num{font-family:var(--mono);font-size:0.65rem;color:var(--accent);letter-spacing:0.1em;margin-bottom:0.75rem}
+.role-name{font-family:var(--mono);font-size:0.82rem;color:#fff;font-weight:700;margin-bottom:0.5rem;line-height:1.3}
+.role-skills{font-size:0.75rem;color:var(--text-muted);line-height:1.5}
+
+/* Contact */
+#contact{background:var(--bg);text-align:center;padding:8rem 2.5rem}
+.contact-inner{max-width:700px;margin:0 auto}
+.contact-big{
+  font-family:var(--mono);font-size:clamp(2.5rem,7vw,5.5rem);
+  font-weight:700;color:#fff;line-height:1;letter-spacing:-0.02em;margin-bottom:2rem;
+}
+.contact-big span{color:var(--accent2);display:block}
+.contact-sub{color:var(--text-muted);margin-bottom:3rem;font-weight:300;font-size:1.05rem;line-height:1.7}
+.contact-links{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:3rem}
+.contact-link{
+  font-family:var(--mono);font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--text-muted);text-decoration:none;
+  display:flex;align-items:center;gap:0.5rem;
+  transition:color 0.3s;
+}
+.contact-link:hover{color:var(--accent2)}
+.contact-link svg{width:14px;height:14px}
+
+footer{
+  border-top:1px solid var(--border);padding:1.5rem 2.5rem;
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--mono);font-size:0.65rem;color:var(--text-muted);letter-spacing:0.1em;
+}
+
+/* Divider */
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0.3;margin:0}
+
+/* Scroll reveal */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:0.1s}
+.reveal-delay-2{transition-delay:0.2s}
+.reveal-delay-3{transition-delay:0.3s}
+.reveal-delay-4{transition-delay:0.4s}
+
+/* Mobile */
+@media(max-width:768px){
+  nav{padding:1rem 1.25rem}
+  .nav-links{gap:1.25rem}
+  section{padding:4rem 1.25rem}
+  .about-grid{grid-template-columns:1fr;gap:3rem}
+  .exp-item{grid-template-columns:1fr;gap:0.75rem}
+  .exp-item::before{display:none}
+  .hero-stats{display:none}
+  .skills-grid{grid-template-columns:1fr 1fr}
+  .roles-grid{grid-template-columns:1fr 1fr}
+}
+
+/* Typewriter */
+.typewriter{overflow:hidden;border-right:2px solid var(--accent2);white-space:nowrap;animation:typing 2.5s steps(40,end) 0.5s both,blink 0.8s step-end infinite}
+@keyframes typing{from{width:0}to{width:100%}}
+@keyframes blink{50%{border-color:transparent}}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="cursor-follower"></div>
+
+<nav>
+  <div class="nav-logo">SG / Portfolio</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#certifications">Certs</a></li>
+    <li><a href="#leadership">Leadership</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-tag">
+      <span></span>
+      Available for opportunities
+    </div>
+    <h1 class="hero-name">SAKSHI<br><span>GOSWAMI</span></h1>
+    <div class="hero-title">B.Tech IT Student &nbsp;/&nbsp; SAKEC Mumbai &nbsp;/&nbsp; CGPA 8.0+</div>
+    <p class="hero-desc">
+      Motivated IT undergraduate with hands-on cybersecurity internship experience, industry-recognized certifications from Cisco, AWS, and Infosys — and a genuine drive to build real things that matter.
+    </p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn-primary">Get In Touch</a>
+      <a href="#experience" class="btn-ghost">View Experience</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <span class="stat-num">5</span>
+      <span class="stat-lbl">Certifications</span>
+    </div>
+    <div>
+      <span class="stat-num">8.0<small style="font-size:1.2rem">+</small></span>
+      <span class="stat-lbl">CGPA</span>
+    </div>
+    <div>
+      <span class="stat-num">10w</span>
+      <span class="stat-lbl">Internship</span>
+    </div>
+    <div>
+      <span class="stat-num" style="font-size:1.1rem">Doc</span>
+      <span class="stat-lbl">Head · Unnati</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div>
+      <div class="section-label reveal">01 — About</div>
+      <h2 class="section-title reveal">Who<br>I Am.</h2>
+      <div class="about-text">
+        <p class="reveal reveal-delay-1">I'm a third-year <strong>B.Tech Information Technology</strong> student at Shah &amp; Anchor Kutchhi Engineering College, Mumbai — maintaining a CGPA of 8.0+. I combine a strong technical foundation with excellent communication and coordination skills.</p>
+        <p class="reveal reveal-delay-2">I completed a <strong>10-week AICTE-certified Ethical Hacking internship</strong> where I gained practical experience in penetration testing, network vulnerability assessment, and security methodologies. I'm passionate about cybersecurity, cloud computing, and DevOps.</p>
+        <p class="reveal reveal-delay-3">Alongside my studies, I serve as <strong>Documentation Head of Unnati</strong>, the Women's Cell at SAKEC — leading documentation, coordination, and communication for college-wide initiatives. I also manage real-world retail operations part-time, sharpening my <strong>customer handling, multi-tasking, and independent decision-making</strong> abilities.</p>
+        <p class="reveal reveal-delay-4" style="font-family:var(--mono);font-size:0.78rem;color:var(--accent3);letter-spacing:0.05em">
+          📍 Thane, Maharashtra &nbsp;|&nbsp; Graduation: 2027
+        </p>
+      </div>
+    </div>
+    <div class="about-sidebar">
+      <div class="section-label reveal">Education</div>
+      <div class="edu-card reveal reveal-delay-1">
+        <div class="school">SAKEC — Mumbai, Maharashtra</div>
+        <div class="degree">B.Tech in Information Technology</div>
+        <div class="detail">CGPA 8.0+ &nbsp;·&nbsp; Expected 2027</div>
+      </div>
+      <div class="section-label reveal" style="margin-top:2.5rem">Languages Known</div>
+      <div class="reveal reveal-delay-1" style="display:flex;gap:0.6rem;flex-wrap:wrap">
+        <span class="skill-tag">English</span>
+        <span class="skill-tag">Hindi</span>
+        <span class="skill-tag">Gujarati</span>
+        <span class="skill-tag">Marathi</span>
+      </div>
+      <div class="section-label reveal" style="margin-top:2.5rem">Open To</div>
+      <div class="reveal reveal-delay-1" style="display:flex;flex-direction:column;gap:0.6rem">
+        <span class="skill-tag" style="display:block;border-color:rgba(192,132,252,0.4);color:var(--accent2)">Full-time Entry-Level Roles</span>
+        <span class="skill-tag" style="display:block;border-color:rgba(56,189,248,0.4);color:var(--accent3)">Internships</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="skills-container">
+    <div class="section-label reveal">02 — Technical Skills</div>
+    <h2 class="section-title reveal">What I<br>Work With.</h2>
+    <div class="skills-grid reveal reveal-delay-1">
+      <div class="skill-group">
+        <div class="skill-group-title">Programming</div>
+        <span class="skill-tag">C</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">Java</span>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Web Technologies</div>
+        <span class="skill-tag">HTML</span>
+        <span class="skill-tag">CSS</span>
+        <span class="skill-tag">JavaScript</span>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Cloud & Networking</div>
+        <span class="skill-tag">AWS (EC2, S3, IAM, VPC)</span>
+        <span class="skill-tag">Cisco Networking</span>
+        <span class="skill-tag">TCP/IP, DNS, DHCP</span>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Cybersecurity</div>
+        <span class="skill-tag">Ethical Hacking</span>
+        <span class="skill-tag">Penetration Testing</span>
+        <span class="skill-tag">Network Security</span>
+        <span class="skill-tag">Vulnerability Assessment</span>
+        <span class="skill-tag">Nmap</span>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">DevOps</div>
+        <span class="skill-tag">Docker</span>
+        <span class="skill-tag">Jenkins</span>
+        <span class="skill-tag">CI/CD Pipelines</span>
+        <span class="skill-tag">Git / GitHub</span>
+        <span class="skill-tag">Grafana</span>
+        <span class="skill-tag">Prometheus</span>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Tools & OS</div>
+        <span class="skill-tag">Linux (Ubuntu)</span>
+        <span class="skill-tag">VS Code</span>
+        <span class="skill-tag">MS Office</span>
+        <span class="skill-tag">Windows</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="exp-container">
+    <div class="section-label reveal">03 — Experience</div>
+    <h2 class="section-title reveal">What I've<br>Done.</h2>
+    <div class="exp-item reveal reveal-delay-1">
+      <div class="exp-meta">
+        <div class="exp-period">Jul – Sep 2025</div>
+        <div class="exp-type">Internship</div>
+      </div>
+      <div>
+        <div class="exp-role">Ethical Hacking Virtual Intern</div>
+        <div class="exp-org">EduSkills Academy (AICTE — National Internship Portal)</div>
+        <ul class="exp-desc">
+          <li>Completed 10-week AICTE-certified Ethical Hacking internship — Grade P (Pass)</li>
+          <li>Studied penetration testing, network vulnerability assessment, and system exploitation in virtual lab environments</li>
+          <li>Applied Linux-based tools and network analysis in real cybersecurity scenarios</li>
+          <li>Demonstrated strong self-management by completing all milestones within stipulated periods</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exp-item reveal reveal-delay-2">
+      <div class="exp-meta">
+        <div class="exp-period">Ongoing</div>
+        <div class="exp-type">Part-time</div>
+      </div>
+      <div>
+        <div class="exp-role">Retail Customer Service Assistant</div>
+        <div class="exp-org">Family Retail Business — Thane</div>
+        <ul class="exp-desc">
+          <li>Manages billing, customer queries, and overall daily shop operations independently</li>
+          <li>Developed strong interpersonal skills through interaction with a large, diverse customer base</li>
+          <li>Demonstrates ownership and accountability by independently running operations on multiple occasions</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="certs-container">
+    <div class="section-label reveal">04 — Certifications</div>
+    <h2 class="section-title reveal">Industry<br>Recognition.</h2>
+    <div class="certs-grid">
+      <div class="cert-card reveal reveal-delay-1">
+        <div class="cert-issuer">Amazon Web Services</div>
+        <div class="cert-name">AWS Academy Graduate — Cloud Foundations</div>
+        <div class="cert-date">March 2026 &nbsp;·&nbsp; 20-hour course</div>
+      </div>
+      <div class="cert-card reveal reveal-delay-2">
+        <div class="cert-issuer">EduSkills Academy (AICTE)</div>
+        <div class="cert-name">Ethical Hacking</div>
+        <div class="cert-date">September 2025</div>
+      </div>
+      <div class="cert-card reveal reveal-delay-1">
+        <div class="cert-issuer">Infosys Springboard</div>
+        <div class="cert-name">Basics of Python</div>
+        <div class="cert-date">April 2025</div>
+      </div>
+      <div class="cert-card reveal reveal-delay-2">
+        <div class="cert-issuer">Cisco Networking Academy</div>
+        <div class="cert-name">Introduction to Cybersecurity</div>
+        <div class="cert-date">July 2024</div>
+      </div>
+      <div class="cert-card reveal reveal-delay-3">
+        <div class="cert-issuer">Cisco Networking Academy</div>
+        <div class="cert-name">Programming Essentials in C (CLA)</div>
+        <div class="cert-date">April 2024</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- LEADERSHIP & EXTRACURRICULARS -->
+<section id="leadership" style="background:var(--bg)">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="section-label reveal">05 — Leadership</div>
+    <h2 class="section-title reveal">Beyond<br>Academics.</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;margin-top:1rem">
+
+      <div class="cert-card reveal reveal-delay-1" style="background:var(--surface2);border-color:rgba(192,132,252,0.3)">
+        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem">
+          <div style="width:36px;height:36px;background:rgba(192,132,252,0.12);border:1px solid rgba(192,132,252,0.3);display:flex;align-items:center;justify-content:center;font-size:1rem">✍️</div>
+          <div>
+            <div class="cert-issuer" style="color:var(--accent2)">SAKEC Mumbai — Women's Cell</div>
+            <div class="cert-name" style="margin-bottom:0">Documentation Head — Unnati</div>
+          </div>
+        </div>
+        <p style="font-size:0.85rem;color:var(--text-muted);line-height:1.7;margin-bottom:0.75rem">
+          Serving as Documentation Head for <strong style="color:var(--text)">Unnati</strong>, the Women's Cell of Shah &amp; Anchor Kutchhi Engineering College. Responsible for maintaining official records, drafting communications, and coordinating documentation for college events and initiatives that empower women in tech.
+        </p>
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+          <span class="skill-tag" style="border-color:rgba(192,132,252,0.3);color:var(--accent2)">Leadership</span>
+          <span class="skill-tag" style="border-color:rgba(192,132,252,0.3);color:var(--accent2)">Documentation</span>
+          <span class="skill-tag" style="border-color:rgba(192,132,252,0.3);color:var(--accent2)">Coordination</span>
+          <span class="skill-tag" style="border-color:rgba(192,132,252,0.3);color:var(--accent2)">Communication</span>
+        </div>
+      </div>
+
+      <div class="cert-card reveal reveal-delay-2" style="background:var(--surface2);border-color:rgba(56,189,248,0.3)">
+        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem">
+          <div style="width:36px;height:36px;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.2);display:flex;align-items:center;justify-content:center;font-size:1rem">🏆</div>
+          <div>
+            <div class="cert-issuer" style="color:var(--accent3)">Academic Excellence</div>
+            <div class="cert-name" style="margin-bottom:0">CGPA 8.0+ — B.Tech IT</div>
+          </div>
+        </div>
+        <p style="font-size:0.85rem;color:var(--text-muted);line-height:1.7;margin-bottom:0.75rem">
+          Consistently maintaining a CGPA of <strong style="color:var(--text)">8.0+</strong> throughout the B.Tech Information Technology program at SAKEC, Mumbai, while simultaneously managing internships, certifications, and extracurricular responsibilities.
+        </p>
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+          <span class="skill-tag" style="border-color:rgba(56,189,248,0.3);color:var(--accent3)">SAKEC Mumbai</span>
+          <span class="skill-tag" style="border-color:rgba(56,189,248,0.3);color:var(--accent3)">B.Tech IT</span>
+          <span class="skill-tag" style="border-color:rgba(56,189,248,0.3);color:var(--accent3)">Expected 2027</span>
+        </div>
+      </div>
+
+      <div class="cert-card reveal reveal-delay-3" style="background:var(--surface2);border-color:rgba(123,94,167,0.3)">
+        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem">
+          <div style="width:36px;height:36px;background:rgba(123,94,167,0.12);border:1px solid rgba(123,94,167,0.3);display:flex;align-items:center;justify-content:center;font-size:1rem">🌐</div>
+          <div>
+            <div class="cert-issuer" style="color:var(--accent)">Multilingual</div>
+            <div class="cert-name" style="margin-bottom:0">4 Languages</div>
+          </div>
+        </div>
+        <p style="font-size:0.85rem;color:var(--text-muted);line-height:1.7;margin-bottom:0.75rem">
+          Fluent in multiple languages, enabling effective communication with diverse teams and clients across professional and academic settings.
+        </p>
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+          <span class="skill-tag">English</span>
+          <span class="skill-tag">Hindi</span>
+          <span class="skill-tag">Gujarati</span>
+          <span class="skill-tag">Marathi</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ROLES -->
+<section id="roles" style="background:var(--surface)">
+  <div class="roles-container">
+    <div class="section-label reveal">06 — Target Roles</div>
+    <h2 class="section-title reveal">Where I<br>Fit In.</h2>
+    <div class="roles-grid reveal reveal-delay-1">
+      <div class="role-item">
+        <div class="role-num">01</div>
+        <div class="role-name">Cybersecurity Analyst / SOC Analyst</div>
+        <div class="role-skills">Ethical Hacking · Cisco Certifications · Penetration Testing</div>
+      </div>
+      <div class="role-item">
+        <div class="role-num">02</div>
+        <div class="role-name">Cloud Support Associate / AWS Intern</div>
+        <div class="role-skills">AWS Cloud Foundations · Networking · Python · Linux</div>
+      </div>
+      <div class="role-item">
+        <div class="role-num">03</div>
+        <div class="role-name">DevOps Trainee / Junior DevOps Engineer</div>
+        <div class="role-skills">Docker · Jenkins · CI/CD · Git · Grafana</div>
+      </div>
+      <div class="role-item">
+        <div class="role-num">04</div>
+        <div class="role-name">Junior Software Developer / Trainee</div>
+        <div class="role-skills">Python · Java · C · Web Development</div>
+      </div>
+      <div class="role-item">
+        <div class="role-num">05</div>
+        <div class="role-name">IT Business Analyst / Project Coordinator</div>
+        <div class="role-skills">Communication · Technical Background · Coordination</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="section-label reveal" style="justify-content:center">07 — Contact</div>
+    <div class="contact-big reveal">
+      Let's<br><span>Connect.</span>
+    </div>
+    <p class="contact-sub reveal reveal-delay-1">
+      I'm actively seeking entry-level opportunities and internships in cybersecurity, cloud computing, DevOps, and software development. Drop me a message — I'd love to chat!
+    </p>
+    <div class="contact-links reveal reveal-delay-2">
+      <a href="mailto:goswami.sakshi2085@gmail.com" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 4l8 9 8-9"/></svg>
+        goswami.sakshi2085@gmail.com
+      </a>
+      <a href="tel:+918591784841" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.71 19.79 19.79 0 012 1.18 2 2 0 014 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+        +91 8591784841
+      </a>
+      <a href="https://linkedin.com/in/sakshi-goswami-17b536318" target="_blank" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn Profile
+      </a>
+    </div>
+    <a href="mailto:goswami.sakshi2085@gmail.com" class="btn-primary reveal reveal-delay-3">Send Me a Message</a>
+  </div>
+</section>
+
+<footer>
+  <span>Sakshi Haresh Goswami &nbsp;·&nbsp; B.Tech IT Student, SAKEC Mumbai</span>
+  <span>Thane, Maharashtra &nbsp;·&nbsp; 2026</span>
+</footer>
+
+<script>
+const cursor = document.getElementById('cursor');
+const follower = document.getElementById('cursor-follower');
+let mx=0,my=0,fx=0,fy=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cursor.style.transform=`translate(${mx-5}px,${my-5}px)`;
+});
+function animFollower(){
+  fx+=(mx-fx-15)*0.12;
+  fy+=(my-fy-15)*0.12;
+  follower.style.transform=`translate(${fx}px,${fy}px)`;
+  requestAnimationFrame(animFollower);
+}
+animFollower();
+
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}
+  });
+},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
+reveals.forEach(r=>obs.observe(r));
+</script>
+</body>
+</html>
